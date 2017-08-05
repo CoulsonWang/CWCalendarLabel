@@ -25,6 +25,9 @@ typedef enum : NSUInteger {
 
 @property (assign, nonatomic) NSInteger animCount;
 
+@property (strong, nonatomic) NSMutableArray<UILabel *> *animLables;
+
+@property (strong, nonatomic) NSString *lastText;
 
 @end
 
@@ -35,24 +38,35 @@ typedef enum : NSUInteger {
     if (self) {
         self.animateDuration = 0.5;
         self.animCount = 0;
+        self.animLables = [NSMutableArray array];
     }
     return self;
 }
 
+- (NSString *)lastText {
+    if (!_lastText) {
+        _lastText = self.text;
+    }
+    return _lastText;
+}
+
 - (BOOL)isAnimating {
-    return (self.animCount != 0);
+    return (self.animLables.count != 0);
 }
 
 
 // 核心方法
 - (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction {
     
+    [self removeAllAnimate];
+    
     CWCalendarLabelPosition nextPosition = (direction == CWCalendarLabelPositionTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
     UILabel *nextLabel = [self addNextTextLabelWithText:nextText atPosition:nextPosition];
-    UILabel *currentLabel = [self addNextTextLabelWithText:self.text atPosition:CWCalendarLabelPositionCenter];
+    UILabel *currentLabel = [self addNextTextLabelWithText:self.lastText atPosition:CWCalendarLabelPositionCenter];
     CGFloat translantionY = (nextPosition == CWCalendarLabelPositionTop) ? kHeight : -kHeight;
     
-    self.animCount += 1;
+    self.lastText = nextText;
+    
     [UIView animateWithDuration:self.animateDuration animations:^{
         currentLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
         currentLabel.alpha = 0;
@@ -60,10 +74,9 @@ typedef enum : NSUInteger {
         nextLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
         nextLabel.alpha = 1.0;
     } completion:^(BOOL finished) {
-        self.animCount -= 1;
         self.text = nextText;
-        [nextLabel removeFromSuperview];
-        [currentLabel removeFromSuperview];
+        [self removeAnimLable:nextLabel];
+        [self removeAnimLable:currentLabel];
         if (!self.animating) {
             self.hidden = NO;
         }
@@ -92,6 +105,7 @@ typedef enum : NSUInteger {
     animLabel.alpha = (position == CWCalendarLabelPositionCenter) ? 1 : 0;
     [self setUpNextTextLabel:animLabel];
     [self.superview addSubview:animLabel];
+    [self.animLables addObject:animLabel];
     
     return animLabel;
 }
@@ -103,6 +117,17 @@ typedef enum : NSUInteger {
     label.textAlignment = self.textAlignment;
     label.numberOfLines = self.numberOfLines;
 }
+     
+- (void)removeAnimLable:(UILabel *)animLable {
+     [self.animLables removeObject:animLable];
+     [animLable removeFromSuperview];
+ }
 
+- (void)removeAllAnimate {
+    for (UILabel *lable in self.animLables) {
+        [lable removeFromSuperview];
+    }
+    [self.animLables removeAllObjects];
+}
 
 @end
