@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "CWCalendarLabel.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) CWCalendarLabel *label;
 
 @end
 
@@ -16,9 +19,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    CWCalendarLabel *calendarLabel = [[CWCalendarLabel alloc] init];
+    calendarLabel.text = @"www";
+    [calendarLabel sizeToFit];
+    
+    
+    calendarLabel.center = self.view.center;
+    
+//    calendarLabel.frame = CGRectMake(0, 0, 200, 30);
+    
+    [self.view addSubview:calendarLabel];
+    
+    self.label = calendarLabel;
 }
 
+- (IBAction)scrollToTop:(UIButton *)sender {
+    [self.label showNextText:@"xxx" withDirection:CWCalendarLabelScrollToTop];
+    
+}
+- (IBAction)scrollToBottom:(UIButton *)sender {
+    [self.label showNextText:@"zzz" withDirection:CWCalendarLabelScrollToBottom];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

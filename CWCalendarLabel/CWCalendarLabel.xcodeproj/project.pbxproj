@@ -14,6 +14,7 @@
 		B925D88B1F35822E00D0BE6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B925D8821F35822E00D0BE6E /* LaunchScreen.storyboard */; };
 		B925D88C1F35822E00D0BE6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B925D8841F35822E00D0BE6E /* Main.storyboard */; };
 		B925D88E1F35822E00D0BE6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B925D8871F35822E00D0BE6E /* main.m */; };
+		B925D8911F3582EE00D0BE6E /* CWCalendarLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B925D8901F3582EE00D0BE6E /* CWCalendarLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		B925D8851F35822E00D0BE6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B925D8861F35822E00D0BE6E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B925D8871F35822E00D0BE6E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B925D88F1F3582EE00D0BE6E /* CWCalendarLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWCalendarLabel.h; sourceTree = "<group>"; };
+		B925D8901F3582EE00D0BE6E /* CWCalendarLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CWCalendarLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 		B925D8791F35822E00D0BE6E /* CWCalendarLabel */ = {
 			isa = PBXGroup;
 			children = (
+				B925D88F1F3582EE00D0BE6E /* CWCalendarLabel.h */,
+				B925D8901F3582EE00D0BE6E /* CWCalendarLabel.m */,
 			);
 			path = CWCalendarLabel;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B925D8911F3582EE00D0BE6E /* CWCalendarLabel.m in Sources */,
 				B925D8891F35822E00D0BE6E /* ViewController.m in Sources */,
 				B925D88E1F35822E00D0BE6E /* main.m in Sources */,
 				B925D8881F35822E00D0BE6E /* AppDelegate.m in Sources */,
