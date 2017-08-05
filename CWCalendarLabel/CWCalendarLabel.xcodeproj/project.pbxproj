@@ -13,7 +13,6 @@
 		B925D88A1F35822E00D0BE6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B925D8811F35822E00D0BE6E /* Assets.xcassets */; };
 		B925D88B1F35822E00D0BE6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B925D8821F35822E00D0BE6E /* LaunchScreen.storyboard */; };
 		B925D88C1F35822E00D0BE6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B925D8841F35822E00D0BE6E /* Main.storyboard */; };
-		B925D88D1F35822E00D0BE6E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B925D8861F35822E00D0BE6E /* Info.plist */; };
 		B925D88E1F35822E00D0BE6E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B925D8871F35822E00D0BE6E /* main.m */; };
 /* End PBXBuildFile section */
 
@@ -218,7 +217,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B925D88D1F35822E00D0BE6E /* Info.plist in Resources */,
 				B925D88C1F35822E00D0BE6E /* Main.storyboard in Resources */,
 				B925D88A1F35822E00D0BE6E /* Assets.xcassets in Resources */,
 				B925D88B1F35822E00D0BE6E /* LaunchScreen.storyboard in Resources */,
@@ -377,7 +375,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CWCalendarLabel/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CWCalendarLabel/CWCalendarLabelDemo/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Personal.YYWang.CWCalendarLabel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,7 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CWCalendarLabel/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CWCalendarLabel/CWCalendarLabelDemo/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Personal.YYWang.CWCalendarLabel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
