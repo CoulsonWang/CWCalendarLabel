@@ -15,7 +15,13 @@ typedef enum : NSUInteger {
 
 @interface CWCalendarLabel : UILabel
 
-// 核心方法，播放滚动动画
+
+/**
+ 核心方法，播放滚动动画
+
+ @param nextText 新的文本
+ @param direction 滚动方向
+ */
 - (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction;
 
 /// 以下为可以自定义的属性
