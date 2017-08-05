@@ -20,6 +20,12 @@ typedef enum : NSUInteger {
 
 @property (weak, nonatomic) UILabel *nextTextLabel;
 
+// 记录上一次的文本
+@property (strong, nonatomic) NSString *lastText;
+
+// 记录是否正在播放动画
+@property (assign, nonatomic, getter=isAnimating) BOOL animating;
+
 @end
 
 @implementation CWCalendarLabel
@@ -28,32 +34,37 @@ typedef enum : NSUInteger {
     self = [super initWithFrame:frame];
     if (self) {
         self.animateDuration = 0.5;
+        self.animating = NO;
     }
     return self;
 }
 
 // 核心方法
 - (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction {
+    
+    if (self.isAnimating) {
+        [self stopLastAnimation];
+    }
+    self.lastText = nextText;
     CWCalendarLabelPosition position = (direction == CWCalendarLabelPositionTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
     [self addNextTextLabelWithText:nextText atPosition:position];
     CGFloat translantionY = (position == CWCalendarLabelPositionTop) ? kHeight : -kHeight;
+    
     [UIView animateWithDuration:self.animateDuration animations:^{
+        self.animating = YES;
         self.transform = CGAffineTransformMakeTranslation(0, translantionY);
         self.alpha = 0;
         self.nextTextLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
         self.nextTextLabel.alpha = 1.0;
     } completion:^(BOOL finished) {
-        self.text = nextText;
-        self.transform = CGAffineTransformIdentity;
-        self.alpha = 1.0;
-        [self.nextTextLabel removeFromSuperview];
+        self.text = self.lastText;
+        [self endAnimation];
     }];
 }
 
+#pragma mark - 私有工具方法
 // 在父控件上添加一个lable实现动画
 - (void)addNextTextLabelWithText:(NSString *)text atPosition:(CWCalendarLabelPosition)position {
-    // 首先清除之前的
-    [self.nextTextLabel removeFromSuperview];
     
     CGFloat y = (position == CWCalendarLabelPositionTop) ? self.frame.origin.y - kHeight : self.frame.origin.y + kHeight;
     UILabel *nextTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, y, kWidth, kHeight)];
@@ -70,6 +81,19 @@ typedef enum : NSUInteger {
     label.font = self.font;
     label.textAlignment = self.textAlignment;
     label.numberOfLines = self.numberOfLines;
+}
+
+- (void)stopLastAnimation {
+    self.text = self.lastText;
+    [self endAnimation];
+}
+
+// 结束动画
+- (void)endAnimation {
+    self.transform = CGAffineTransformIdentity;
+    self.alpha = 1.0;
+    [self.nextTextLabel removeFromSuperview];
+    self.animating = NO;
 }
 
 @end

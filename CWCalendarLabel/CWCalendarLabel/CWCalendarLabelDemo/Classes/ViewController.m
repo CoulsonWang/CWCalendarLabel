@@ -21,7 +21,7 @@
     [super viewDidLoad];
     
     CWCalendarLabel *calendarLabel = [[CWCalendarLabel alloc] init];
-    calendarLabel.text = @"www";
+    calendarLabel.text = @"99";
     [calendarLabel sizeToFit];
     
     
@@ -35,11 +35,16 @@
 }
 
 - (IBAction)scrollToTop:(UIButton *)sender {
-    [self.label showNextText:@"xxx" withDirection:CWCalendarLabelScrollToTop];
+
+    NSString *str = [NSString stringWithFormat:@"%ld",self.label.text.integerValue + 1];
+    [self.label showNextText:str withDirection:CWCalendarLabelScrollToTop];
     
 }
 - (IBAction)scrollToBottom:(UIButton *)sender {
-    [self.label showNextText:@"zzz" withDirection:CWCalendarLabelScrollToBottom];
+    static int i = 99;
+    i -= 1;
+    NSString *str = [NSString stringWithFormat:@"%d",i];
+    [self.label showNextText:str withDirection:CWCalendarLabelScrollToBottom];
 }
 
 - (void)didReceiveMemoryWarning {
