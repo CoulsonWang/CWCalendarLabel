@@ -25,8 +25,9 @@
     calendarLabel.textAlignment = NSTextAlignmentCenter;
     calendarLabel.bounds = CGRectMake(0, 0, 100, 30);
     calendarLabel.center = self.view.center;
-    calendarLabel.distance = 10.0;
-    calendarLabel.animateDuration = 1.0;
+    calendarLabel.font = [UIFont systemFontOfSize:30];
+    calendarLabel.animateDuration = 0.5;
+    calendarLabel.enableWhenSame = NO;
     
     [self.view addSubview:calendarLabel];
     

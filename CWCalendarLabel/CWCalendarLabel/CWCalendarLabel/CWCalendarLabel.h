@@ -24,13 +24,15 @@ typedef enum : NSUInteger {
  */
 - (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction;
 
-/// 以下为可以自定义的属性
+/* 以下为可以自定义的属性 */
 
-// 动画播放时长，默认为0.5
+/// 动画播放时长，默认为0.5
 @property (assign, nonatomic) NSTimeInterval animateDuration;
 
-// 动画label与原label之间的额外垂直间距，默认为0(紧贴)
+/// 动画label与原label之间的额外垂直间距，默认为0(紧贴)
 @property (assign, nonatomic) CGFloat distance;
 
+// 确定当新的文本与原文本一致时是否滚动，默认为Yes
+@property (assign, nonatomic, getter=isEnableWhenSame) BOOL enableWhenSame;
 
 @end

@@ -39,6 +39,7 @@ typedef enum : NSUInteger {
         self.animateDuration = 0.5;
         self.animCount = 0;
         self.animLables = [NSMutableArray array];
+        self.enableWhenSame = YES;
     }
     return self;
 }
@@ -60,7 +61,11 @@ typedef enum : NSUInteger {
     
     [self removeAllAnimate];
     
-    CWCalendarLabelPosition nextPosition = (direction == CWCalendarLabelPositionTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
+    if ([self.text isEqualToString:nextText] && !self.isEnableWhenSame) {
+        return;
+    }
+    
+    CWCalendarLabelPosition nextPosition = (direction == CWCalendarLabelScrollToTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
     UILabel *nextLabel = [self addNextTextLabelWithText:nextText atPosition:nextPosition];
     UILabel *currentLabel = [self addNextTextLabelWithText:self.lastText atPosition:CWCalendarLabelPositionCenter];
     CGFloat translantionY = (nextPosition == CWCalendarLabelPositionTop) ? kHeight : -kHeight;

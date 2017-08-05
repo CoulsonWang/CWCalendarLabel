@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "CWCalendarLabel"                #名称
-s.version      = "1.0.0"                #版本号
+s.version      = "1.0.1"                #版本号
 s.summary      = "轻量级的日历形式滚动动画文本控件"        #简短介绍
 s.description  = <<-DESC
 CWCalendarLabel是一个轻量级的Label控件，可以快速实现日历效果的文本动画。
