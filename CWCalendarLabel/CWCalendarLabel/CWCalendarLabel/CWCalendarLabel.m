@@ -89,10 +89,10 @@ typedef enum : NSUInteger {
     CGFloat y;
     switch (position) {
         case CWCalendarLabelPositionTop:
-            y = self.frame.origin.y - kHeight;
+            y = self.frame.origin.y - kHeight - self.distance;
             break;
         case CWCalendarLabelPositionBottom:
-            y = self.frame.origin.y + kHeight;
+            y = self.frame.origin.y + kHeight + self.distance;
             break;
         case CWCalendarLabelPositionCenter:
             y = self.frame.origin.y;

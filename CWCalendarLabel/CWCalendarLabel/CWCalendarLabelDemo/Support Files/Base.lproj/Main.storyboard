@@ -21,17 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GiN-6E-6ng">
-                                <rect key="frame" x="85" y="125" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkD-im-1aS">
+                                <rect key="frame" x="164" y="68" width="46" height="30"/>
                                 <state key="normal" title="向上滚"/>
                                 <connections>
-                                    <action selector="scrollToTop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Qe-qI-qpy"/>
+                                    <action selector="scrollToTop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x7e-EV-Y7B"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWP-f5-IXz">
-                                <rect key="frame" x="237" y="125" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EWP-f5-IXz">
+                                <rect key="frame" x="164" y="541" width="46" height="30"/>
                                 <state key="normal" title="向下滚"/>
                                 <connections>
                                     <action selector="scrollToBottom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FFu-fg-zNY"/>
@@ -39,10 +37,17 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="EWP-f5-IXz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nft-cv-Ijb"/>
+                            <constraint firstItem="hkD-im-1aS" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="48" id="Uwo-Ls-nsi"/>
+                            <constraint firstItem="hkD-im-1aS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VXN-n3-DYV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EWP-f5-IXz" secondAttribute="bottom" constant="96" id="YW4-CF-YIR"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="34.632683658170919"/>
         </scene>
     </scenes>
 </document>

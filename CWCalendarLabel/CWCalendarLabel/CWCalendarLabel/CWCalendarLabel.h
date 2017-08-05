@@ -15,8 +15,16 @@ typedef enum : NSUInteger {
 
 @interface CWCalendarLabel : UILabel
 
+// 核心方法，播放滚动动画
+- (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction;
+
+/// 以下为可以自定义的属性
+
+// 动画播放时长，默认为0.5
 @property (assign, nonatomic) NSTimeInterval animateDuration;
 
-- (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction;
+// 动画label与原label之间的额外垂直间距，默认为0(紧贴)
+@property (assign, nonatomic) CGFloat distance;
+
 
 @end

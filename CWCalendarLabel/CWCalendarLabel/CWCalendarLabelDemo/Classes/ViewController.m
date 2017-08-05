@@ -22,16 +22,17 @@
     
     CWCalendarLabel *calendarLabel = [[CWCalendarLabel alloc] init];
     calendarLabel.text = @"99";
-    
+    calendarLabel.textAlignment = NSTextAlignmentCenter;
     calendarLabel.bounds = CGRectMake(0, 0, 100, 30);
-    
     calendarLabel.center = self.view.center;
-    
+    calendarLabel.distance = 10.0;
+    calendarLabel.animateDuration = 1.0;
     
     [self.view addSubview:calendarLabel];
     
     self.label = calendarLabel;
 }
+
 static int i = 99;
 - (IBAction)scrollToTop:(UIButton *)sender {
     i += 1;
