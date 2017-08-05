@@ -22,26 +22,25 @@
     
     CWCalendarLabel *calendarLabel = [[CWCalendarLabel alloc] init];
     calendarLabel.text = @"99";
-    [calendarLabel sizeToFit];
     
+    calendarLabel.bounds = CGRectMake(0, 0, 100, 30);
     
     calendarLabel.center = self.view.center;
     
-//    calendarLabel.frame = CGRectMake(0, 0, 200, 30);
     
     [self.view addSubview:calendarLabel];
     
     self.label = calendarLabel;
 }
-
+static int i = 99;
 - (IBAction)scrollToTop:(UIButton *)sender {
-
-    NSString *str = [NSString stringWithFormat:@"%ld",self.label.text.integerValue + 1];
+    i += 1;
+    NSString *str = [NSString stringWithFormat:@"%d",i];
     [self.label showNextText:str withDirection:CWCalendarLabelScrollToTop];
     
 }
 - (IBAction)scrollToBottom:(UIButton *)sender {
-    static int i = 99;
+    
     i -= 1;
     NSString *str = [NSString stringWithFormat:@"%d",i];
     [self.label showNextText:str withDirection:CWCalendarLabelScrollToBottom];

@@ -12,19 +12,19 @@
 #define kHeight self.bounds.size.height
 
 typedef enum : NSUInteger {
+    CWCalendarLabelPositionCenter,
     CWCalendarLabelPositionTop,
     CWCalendarLabelPositionBottom,
 } CWCalendarLabelPosition;
 
 @interface CWCalendarLabel ()
 
-@property (weak, nonatomic) UILabel *nextTextLabel;
-
-// 记录上一次的文本
-@property (strong, nonatomic) NSString *lastText;
 
 // 记录是否正在播放动画
 @property (assign, nonatomic, getter=isAnimating) BOOL animating;
+
+@property (assign, nonatomic) NSInteger animCount;
+
 
 @end
 
@@ -34,45 +34,66 @@ typedef enum : NSUInteger {
     self = [super initWithFrame:frame];
     if (self) {
         self.animateDuration = 0.5;
-        self.animating = NO;
+        self.animCount = 0;
     }
     return self;
 }
 
+- (BOOL)isAnimating {
+    return (self.animCount != 0);
+}
+
+
 // 核心方法
 - (void)showNextText:(NSString *)nextText withDirection:(CWCalendarLabelScrollDirection)direction {
     
-    if (self.isAnimating) {
-        [self stopLastAnimation];
-    }
-    self.lastText = nextText;
-    CWCalendarLabelPosition position = (direction == CWCalendarLabelPositionTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
-    [self addNextTextLabelWithText:nextText atPosition:position];
-    CGFloat translantionY = (position == CWCalendarLabelPositionTop) ? kHeight : -kHeight;
+    CWCalendarLabelPosition nextPosition = (direction == CWCalendarLabelPositionTop) ? CWCalendarLabelPositionBottom : CWCalendarLabelPositionTop;
+    UILabel *nextLabel = [self addNextTextLabelWithText:nextText atPosition:nextPosition];
+    UILabel *currentLabel = [self addNextTextLabelWithText:self.text atPosition:CWCalendarLabelPositionCenter];
+    CGFloat translantionY = (nextPosition == CWCalendarLabelPositionTop) ? kHeight : -kHeight;
     
+    self.animCount += 1;
     [UIView animateWithDuration:self.animateDuration animations:^{
-        self.animating = YES;
-        self.transform = CGAffineTransformMakeTranslation(0, translantionY);
-        self.alpha = 0;
-        self.nextTextLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
-        self.nextTextLabel.alpha = 1.0;
+        currentLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
+        currentLabel.alpha = 0;
+        self.hidden = YES;
+        nextLabel.transform = CGAffineTransformMakeTranslation(0, translantionY);
+        nextLabel.alpha = 1.0;
     } completion:^(BOOL finished) {
-        self.text = self.lastText;
-        [self endAnimation];
+        self.animCount -= 1;
+        self.text = nextText;
+        [nextLabel removeFromSuperview];
+        [currentLabel removeFromSuperview];
+        if (!self.animating) {
+            self.hidden = NO;
+        }
     }];
 }
 
 #pragma mark - 私有工具方法
 // 在父控件上添加一个lable实现动画
-- (void)addNextTextLabelWithText:(NSString *)text atPosition:(CWCalendarLabelPosition)position {
+- (UILabel *)addNextTextLabelWithText:(NSString *)text atPosition:(CWCalendarLabelPosition)position {
+    CGFloat y;
+    switch (position) {
+        case CWCalendarLabelPositionTop:
+            y = self.frame.origin.y - kHeight;
+            break;
+        case CWCalendarLabelPositionBottom:
+            y = self.frame.origin.y + kHeight;
+            break;
+        case CWCalendarLabelPositionCenter:
+            y = self.frame.origin.y;
+            break;
+        default:
+            break;
+    }
+    UILabel *animLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, y, kWidth, kHeight)];
+    animLabel.text = text;
+    animLabel.alpha = (position == CWCalendarLabelPositionCenter) ? 1 : 0;
+    [self setUpNextTextLabel:animLabel];
+    [self.superview addSubview:animLabel];
     
-    CGFloat y = (position == CWCalendarLabelPositionTop) ? self.frame.origin.y - kHeight : self.frame.origin.y + kHeight;
-    UILabel *nextTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.origin.x, y, kWidth, kHeight)];
-    nextTextLabel.text = text;
-    nextTextLabel.alpha = 0;
-    [self setUpNextTextLabel:nextTextLabel];
-    [self.superview addSubview:nextTextLabel];
-    self.nextTextLabel = nextTextLabel;
+    return animLabel;
 }
 
 // 设置临时文本控件的样式
@@ -83,17 +104,5 @@ typedef enum : NSUInteger {
     label.numberOfLines = self.numberOfLines;
 }
 
-- (void)stopLastAnimation {
-    self.text = self.lastText;
-    [self endAnimation];
-}
-
-// 结束动画
-- (void)endAnimation {
-    self.transform = CGAffineTransformIdentity;
-    self.alpha = 1.0;
-    [self.nextTextLabel removeFromSuperview];
-    self.animating = NO;
-}
 
 @end
